@@ -1,6 +1,6 @@
 import AVFAudio
-import MoltbotKit
-import MoltbotProtocol
+import DainelKit
+import DainelProtocol
 import Foundation
 import Observation
 import OSLog

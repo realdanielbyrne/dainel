@@ -23,10 +23,10 @@ vi.mock("../config/config.js", async (importOriginal) => {
 
 import { emitAgentEvent } from "../infra/agent-events.js";
 import "./test-helpers/fast-core-tools.js";
-import { createMoltbotTools } from "./moltbot-tools.js";
+import { createDainelTools } from "./moltbot-tools.js";
 import { resetSubagentRegistryForTests } from "./subagent-registry.js";
 
-describe("moltbot-tools: subagents", () => {
+describe("dainel-tools: subagents", () => {
   beforeEach(() => {
     configOverride = {
       session: {
@@ -95,7 +95,7 @@ describe("moltbot-tools: subagents", () => {
       return {};
     });
 
-    const tool = createMoltbotTools({
+    const tool = createDainelTools({
       agentSessionKey: "main",
       agentChannel: "whatsapp",
     }).find((candidate) => candidate.name === "sessions_spawn");
@@ -155,7 +155,7 @@ describe("moltbot-tools: subagents", () => {
     resetSubagentRegistryForTests();
     callGatewayMock.mockReset();
 
-    const tool = createMoltbotTools({
+    const tool = createDainelTools({
       agentSessionKey: "main",
       agentChannel: "whatsapp",
     }).find((candidate) => candidate.name === "sessions_spawn");

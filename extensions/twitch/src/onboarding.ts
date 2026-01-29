@@ -8,11 +8,11 @@ import {
   type ChannelOnboardingAdapter,
   type ChannelOnboardingDmPolicy,
   type WizardPrompter,
-} from "clawdbot/plugin-sdk";
+} from "dainel/plugin-sdk";
 import { DEFAULT_ACCOUNT_ID, getAccountConfig } from "./config.js";
 import { isAccountConfigured } from "./utils/twitch.js";
 import type { TwitchAccountConfig, TwitchRole } from "./types.js";
-import type { MoltbotConfig } from "clawdbot/plugin-sdk";
+import type { DainelConfig } from "dainel/plugin-sdk";
 
 const channel = "twitch" as const;
 
@@ -20,9 +20,9 @@ const channel = "twitch" as const;
  * Set Twitch account configuration
  */
 function setTwitchAccount(
-  cfg: MoltbotConfig,
+  cfg: DainelConfig,
   account: Partial<TwitchAccountConfig>,
-): MoltbotConfig {
+): DainelConfig {
   const existing = getAccountConfig(cfg, DEFAULT_ACCOUNT_ID);
   const merged: TwitchAccountConfig = {
     username: account.username ?? existing?.username ?? "",
@@ -205,13 +205,13 @@ async function promptRefreshTokenSetup(
  * Configure with env token path (returns early if user chooses env token).
  */
 async function configureWithEnvToken(
-  cfg: MoltbotConfig,
+  cfg: DainelConfig,
   prompter: WizardPrompter,
   account: TwitchAccountConfig | null,
   envToken: string,
   forceAllowFrom: boolean,
   dmPolicy: ChannelOnboardingDmPolicy,
-): Promise<{ cfg: MoltbotConfig } | null> {
+): Promise<{ cfg: DainelConfig } | null> {
   const useEnv = await prompter.confirm({
     message: "Twitch env var CLAWDBOT_TWITCH_ACCESS_TOKEN detected. Use env token?",
     initialValue: true,
@@ -241,10 +241,10 @@ async function configureWithEnvToken(
  * Set Twitch access control (role-based)
  */
 function setTwitchAccessControl(
-  cfg: MoltbotConfig,
+  cfg: DainelConfig,
   allowedRoles: TwitchRole[],
   requireMention: boolean,
-): MoltbotConfig {
+): DainelConfig {
   const account = getAccountConfig(cfg, DEFAULT_ACCOUNT_ID);
   if (!account) {
     return cfg;
@@ -272,7 +272,7 @@ const dmPolicy: ChannelOnboardingDmPolicy = {
   setPolicy: (cfg, policy) => {
     const allowedRoles: TwitchRole[] =
       policy === "open" ? ["all"] : policy === "allowlist" ? [] : ["moderator"];
-    return setTwitchAccessControl(cfg as MoltbotConfig, allowedRoles, true);
+    return setTwitchAccessControl(cfg as DainelConfig, allowedRoles, true);
   },
   promptAllowFrom: async ({ cfg, prompter }) => {
     const account = getAccountConfig(cfg, DEFAULT_ACCOUNT_ID);
@@ -289,7 +289,7 @@ const dmPolicy: ChannelOnboardingDmPolicy = {
       .map((s) => s.trim())
       .filter(Boolean);
 
-    return setTwitchAccount(cfg as MoltbotConfig, {
+    return setTwitchAccount(cfg as DainelConfig, {
       ...(account ?? undefined),
       allowFrom,
     });

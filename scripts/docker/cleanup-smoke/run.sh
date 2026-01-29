@@ -3,30 +3,30 @@ set -euo pipefail
 
 cd /repo
 
-export CLAWDBOT_STATE_DIR="/tmp/moltbot-test"
-export CLAWDBOT_CONFIG_PATH="${CLAWDBOT_STATE_DIR}/moltbot.json"
+export DAINEL_STATE_DIR="/tmp/dainel-test"
+export DAINEL_CONFIG_PATH="${DAINEL_STATE_DIR}/dainel.json"
 
 echo "==> Seed state"
-mkdir -p "${CLAWDBOT_STATE_DIR}/credentials"
-mkdir -p "${CLAWDBOT_STATE_DIR}/agents/main/sessions"
-echo '{}' >"${CLAWDBOT_CONFIG_PATH}"
-echo 'creds' >"${CLAWDBOT_STATE_DIR}/credentials/marker.txt"
-echo 'session' >"${CLAWDBOT_STATE_DIR}/agents/main/sessions/sessions.json"
+mkdir -p "${DAINEL_STATE_DIR}/credentials"
+mkdir -p "${DAINEL_STATE_DIR}/agents/main/sessions"
+echo '{}' >"${DAINEL_CONFIG_PATH}"
+echo 'creds' >"${DAINEL_STATE_DIR}/credentials/marker.txt"
+echo 'session' >"${DAINEL_STATE_DIR}/agents/main/sessions/sessions.json"
 
 echo "==> Reset (config+creds+sessions)"
-pnpm moltbot reset --scope config+creds+sessions --yes --non-interactive
+pnpm dainel reset --scope config+creds+sessions --yes --non-interactive
 
-test ! -f "${CLAWDBOT_CONFIG_PATH}"
-test ! -d "${CLAWDBOT_STATE_DIR}/credentials"
-test ! -d "${CLAWDBOT_STATE_DIR}/agents/main/sessions"
+test ! -f "${DAINEL_CONFIG_PATH}"
+test ! -d "${DAINEL_STATE_DIR}/credentials"
+test ! -d "${DAINEL_STATE_DIR}/agents/main/sessions"
 
 echo "==> Recreate minimal config"
-mkdir -p "${CLAWDBOT_STATE_DIR}/credentials"
-echo '{}' >"${CLAWDBOT_CONFIG_PATH}"
+mkdir -p "${DAINEL_STATE_DIR}/credentials"
+echo '{}' >"${DAINEL_CONFIG_PATH}"
 
 echo "==> Uninstall (state only)"
-pnpm moltbot uninstall --state --yes --non-interactive
+pnpm dainel uninstall --state --yes --non-interactive
 
-test ! -d "${CLAWDBOT_STATE_DIR}"
+test ! -d "${DAINEL_STATE_DIR}"
 
 echo "OK"

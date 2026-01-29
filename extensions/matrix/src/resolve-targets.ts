@@ -3,7 +3,7 @@ import type {
   ChannelResolveKind,
   ChannelResolveResult,
   RuntimeEnv,
-} from "clawdbot/plugin-sdk";
+} from "dainel/plugin-sdk";
 
 import {
   listMatrixDirectoryGroupsLive,

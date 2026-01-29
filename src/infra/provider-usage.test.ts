@@ -253,7 +253,7 @@ describe("provider usage loading", () => {
     await withTempHome(
       async (tempHome) => {
         const agentDir = path.join(
-          process.env.CLAWDBOT_STATE_DIR ?? path.join(tempHome, ".clawdbot"),
+          process.env.DAINEL_STATE_DIR ?? path.join(tempHome, ".dainel"),
           "agents",
           "main",
           "agent",
@@ -328,9 +328,9 @@ describe("provider usage loading", () => {
       },
       {
         env: {
-          CLAWDBOT_STATE_DIR: (home) => path.join(home, ".clawdbot"),
+          DAINEL_STATE_DIR: (home) => path.join(home, ".dainel"),
         },
-        prefix: "moltbot-provider-usage-",
+        prefix: "dainel-provider-usage-",
       },
     );
   });

@@ -1,5 +1,5 @@
-import MoltbotChatUI
-import MoltbotProtocol
+import DainelChatUI
+import DainelProtocol
 import Testing
 @testable import Moltbot
 

@@ -104,7 +104,7 @@ vi.mock("clawdbot/plugin-sdk", async () => {
 });
 
 import { createDiagnosticsOtelService } from "./service.js";
-import { emitDiagnosticEvent } from "clawdbot/plugin-sdk";
+import { emitDiagnosticEvent } from "dainel/plugin-sdk";
 
 describe("diagnostics-otel service", () => {
   beforeEach(() => {

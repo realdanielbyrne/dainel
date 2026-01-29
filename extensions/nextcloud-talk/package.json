@@ -1,9 +1,9 @@
 {
-  "name": "@moltbot/nextcloud-talk",
+  "name": "@dainel/nextcloud-talk",
   "version": "2026.1.27-beta.1",
   "type": "module",
-  "description": "Moltbot Nextcloud Talk channel plugin",
-  "moltbot": {
+  "description": "Dainel Nextcloud Talk channel plugin",
+  "dainel": {
     "extensions": [
       "./index.ts"
     ],
@@ -22,7 +22,7 @@
       "quickstartAllowFrom": true
     },
     "install": {
-      "npmSpec": "@moltbot/nextcloud-talk",
+      "npmSpec": "@dainel/nextcloud-talk",
       "localPath": "extensions/nextcloud-talk",
       "defaultChoice": "npm"
     }

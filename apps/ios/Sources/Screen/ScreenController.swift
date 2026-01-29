@@ -1,4 +1,4 @@
-import MoltbotKit
+import DainelKit
 import Observation
 import SwiftUI
 import WebKit

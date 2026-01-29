@@ -1,5 +1,5 @@
 import Testing
-@testable import MoltbotDiscovery
+@testable import DainelDiscovery
 
 @Suite
 struct WideAreaGatewayDiscoveryTests {

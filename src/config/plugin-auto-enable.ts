@@ -1,4 +1,4 @@
-import type { MoltbotConfig } from "./config.js";
+import type { DainelConfig } from "./config.js";
 import {
   getChatChannelMeta,
   listChatChannels,
@@ -17,7 +17,7 @@ type PluginEnableChange = {
 };
 
 export type PluginAutoEnableResult = {
-  config: MoltbotConfig;
+  config: DainelConfig;
   changes: string[];
 };
 
@@ -59,7 +59,7 @@ function accountsHaveKeys(value: unknown, keys: string[]): boolean {
 }
 
 function resolveChannelConfig(
-  cfg: MoltbotConfig,
+  cfg: DainelConfig,
   channelId: string,
 ): Record<string, unknown> | null {
   const channels = cfg.channels as Record<string, unknown> | undefined;
@@ -67,7 +67,7 @@ function resolveChannelConfig(
   return isRecord(entry) ? entry : null;
 }
 
-function isTelegramConfigured(cfg: MoltbotConfig, env: NodeJS.ProcessEnv): boolean {
+function isTelegramConfigured(cfg: DainelConfig, env: NodeJS.ProcessEnv): boolean {
   if (hasNonEmptyString(env.TELEGRAM_BOT_TOKEN)) return true;
   const entry = resolveChannelConfig(cfg, "telegram");
   if (!entry) return false;
@@ -76,7 +76,7 @@ function isTelegramConfigured(cfg: MoltbotConfig, env: NodeJS.ProcessEnv): boole
   return recordHasKeys(entry);
 }
 
-function isDiscordConfigured(cfg: MoltbotConfig, env: NodeJS.ProcessEnv): boolean {
+function isDiscordConfigured(cfg: DainelConfig, env: NodeJS.ProcessEnv): boolean {
   if (hasNonEmptyString(env.DISCORD_BOT_TOKEN)) return true;
   const entry = resolveChannelConfig(cfg, "discord");
   if (!entry) return false;
@@ -85,7 +85,7 @@ function isDiscordConfigured(cfg: MoltbotConfig, env: NodeJS.ProcessEnv): boolea
   return recordHasKeys(entry);
 }
 
-function isSlackConfigured(cfg: MoltbotConfig, env: NodeJS.ProcessEnv): boolean {
+function isSlackConfigured(cfg: DainelConfig, env: NodeJS.ProcessEnv): boolean {
   if (
     hasNonEmptyString(env.SLACK_BOT_TOKEN) ||
     hasNonEmptyString(env.SLACK_APP_TOKEN) ||
@@ -106,7 +106,7 @@ function isSlackConfigured(cfg: MoltbotConfig, env: NodeJS.ProcessEnv): boolean 
   return recordHasKeys(entry);
 }
 
-function isSignalConfigured(cfg: MoltbotConfig): boolean {
+function isSignalConfigured(cfg: DainelConfig): boolean {
   const entry = resolveChannelConfig(cfg, "signal");
   if (!entry) return false;
   if (
@@ -122,27 +122,27 @@ function isSignalConfigured(cfg: MoltbotConfig): boolean {
   return recordHasKeys(entry);
 }
 
-function isIMessageConfigured(cfg: MoltbotConfig): boolean {
+function isIMessageConfigured(cfg: DainelConfig): boolean {
   const entry = resolveChannelConfig(cfg, "imessage");
   if (!entry) return false;
   if (hasNonEmptyString(entry.cliPath)) return true;
   return recordHasKeys(entry);
 }
 
-function isWhatsAppConfigured(cfg: MoltbotConfig): boolean {
+function isWhatsAppConfigured(cfg: DainelConfig): boolean {
   if (hasAnyWhatsAppAuth(cfg)) return true;
   const entry = resolveChannelConfig(cfg, "whatsapp");
   if (!entry) return false;
   return recordHasKeys(entry);
 }
 
-function isGenericChannelConfigured(cfg: MoltbotConfig, channelId: string): boolean {
+function isGenericChannelConfigured(cfg: DainelConfig, channelId: string): boolean {
   const entry = resolveChannelConfig(cfg, channelId);
   return recordHasKeys(entry);
 }
 
 export function isChannelConfigured(
-  cfg: MoltbotConfig,
+  cfg: DainelConfig,
   channelId: string,
   env: NodeJS.ProcessEnv = process.env,
 ): boolean {
@@ -164,7 +164,7 @@ export function isChannelConfigured(
   }
 }
 
-function collectModelRefs(cfg: MoltbotConfig): string[] {
+function collectModelRefs(cfg: DainelConfig): string[] {
   const refs: string[] = [];
   const pushModelRef = (value: unknown) => {
     if (typeof value === "string" && value.trim()) refs.push(value.trim());
@@ -208,7 +208,7 @@ function extractProviderFromModelRef(value: string): string | null {
   return normalizeProviderId(trimmed.slice(0, slash));
 }
 
-function isProviderConfigured(cfg: MoltbotConfig, providerId: string): boolean {
+function isProviderConfigured(cfg: DainelConfig, providerId: string): boolean {
   const normalized = normalizeProviderId(providerId);
 
   const profiles = cfg.auth?.profiles;
@@ -236,10 +236,7 @@ function isProviderConfigured(cfg: MoltbotConfig, providerId: string): boolean {
   return false;
 }
 
-function resolveConfiguredPlugins(
-  cfg: MoltbotConfig,
-  env: NodeJS.ProcessEnv,
-): PluginEnableChange[] {
+function resolveConfiguredPlugins(cfg: DainelConfig, env: NodeJS.ProcessEnv): PluginEnableChange[] {
   const changes: PluginEnableChange[] = [];
   const channelIds = new Set(CHANNEL_PLUGIN_IDS);
   const configuredChannels = cfg.channels as Record<string, unknown> | undefined;
@@ -269,12 +266,12 @@ function resolveConfiguredPlugins(
   return changes;
 }
 
-function isPluginExplicitlyDisabled(cfg: MoltbotConfig, pluginId: string): boolean {
+function isPluginExplicitlyDisabled(cfg: DainelConfig, pluginId: string): boolean {
   const entry = cfg.plugins?.entries?.[pluginId];
   return entry?.enabled === false;
 }
 
-function isPluginDenied(cfg: MoltbotConfig, pluginId: string): boolean {
+function isPluginDenied(cfg: DainelConfig, pluginId: string): boolean {
   const deny = cfg.plugins?.deny;
   return Array.isArray(deny) && deny.includes(pluginId);
 }
@@ -289,7 +286,7 @@ function resolvePreferredOverIds(pluginId: string): string[] {
 }
 
 function shouldSkipPreferredPluginAutoEnable(
-  cfg: MoltbotConfig,
+  cfg: DainelConfig,
   entry: PluginEnableChange,
   configured: PluginEnableChange[],
 ): boolean {
@@ -305,7 +302,7 @@ function shouldSkipPreferredPluginAutoEnable(
   return false;
 }
 
-function ensureAllowlisted(cfg: MoltbotConfig, pluginId: string): MoltbotConfig {
+function ensureAllowlisted(cfg: DainelConfig, pluginId: string): DainelConfig {
   const allow = cfg.plugins?.allow;
   if (!Array.isArray(allow) || allow.includes(pluginId)) return cfg;
   return {
@@ -317,7 +314,7 @@ function ensureAllowlisted(cfg: MoltbotConfig, pluginId: string): MoltbotConfig 
   };
 }
 
-function enablePluginEntry(cfg: MoltbotConfig, pluginId: string): MoltbotConfig {
+function enablePluginEntry(cfg: DainelConfig, pluginId: string): DainelConfig {
   const entries = {
     ...cfg.plugins?.entries,
     [pluginId]: {
@@ -346,7 +343,7 @@ function formatAutoEnableChange(entry: PluginEnableChange): string {
 }
 
 export function applyPluginAutoEnable(params: {
-  config: MoltbotConfig;
+  config: DainelConfig;
   env?: NodeJS.ProcessEnv;
 }): PluginAutoEnableResult {
   const env = params.env ?? process.env;

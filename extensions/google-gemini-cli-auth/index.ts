@@ -1,4 +1,4 @@
-import { emptyPluginConfigSchema } from "clawdbot/plugin-sdk";
+import { emptyPluginConfigSchema } from "dainel/plugin-sdk";
 
 import { loginGeminiCliOAuth } from "./oauth.js";
 

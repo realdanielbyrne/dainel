@@ -1,5 +1,5 @@
 import AVFoundation
-import MoltbotKit
+import DainelKit
 import Foundation
 
 actor CameraController {

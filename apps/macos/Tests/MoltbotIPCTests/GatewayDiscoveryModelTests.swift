@@ -1,4 +1,4 @@
-import MoltbotDiscovery
+import DainelDiscovery
 import Testing
 
 @Suite

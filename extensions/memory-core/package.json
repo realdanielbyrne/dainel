@@ -1,17 +1,17 @@
 {
-  "name": "@moltbot/memory-core",
+  "name": "@dainel/memory-core",
   "version": "2026.1.27-beta.1",
   "type": "module",
-  "description": "Moltbot core memory search plugin",
-  "moltbot": {
+  "description": "Dainel core memory search plugin",
+  "dainel": {
     "extensions": [
       "./index.ts"
     ]
   },
   "peerDependencies": {
-    "moltbot": ">=2026.1.26"
+    "dainel": ">=2026.1.26"
   },
   "devDependencies": {
-    "moltbot": "workspace:*"
+    "dainel": "workspace:*"
   }
 }

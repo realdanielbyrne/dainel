@@ -1,4 +1,4 @@
-import type { MoltbotConfig } from "../../config/config.js";
+import type { DainelConfig } from "../../config/config.js";
 import type { DmPolicy } from "../../config/types.js";
 import type { RuntimeEnv } from "../../runtime.js";
 import type { WizardPrompter } from "../../wizard/prompts.js";
@@ -23,11 +23,11 @@ export type SetupChannelsOptions = {
 };
 
 export type PromptAccountIdParams = {
-  cfg: MoltbotConfig;
+  cfg: DainelConfig;
   prompter: WizardPrompter;
   label: string;
   currentId?: string;
-  listAccountIds: (cfg: MoltbotConfig) => string[];
+  listAccountIds: (cfg: DainelConfig) => string[];
   defaultAccountId: string;
 };
 
@@ -42,13 +42,13 @@ export type ChannelOnboardingStatus = {
 };
 
 export type ChannelOnboardingStatusContext = {
-  cfg: MoltbotConfig;
+  cfg: DainelConfig;
   options?: SetupChannelsOptions;
   accountOverrides: Partial<Record<ChannelId, string>>;
 };
 
 export type ChannelOnboardingConfigureContext = {
-  cfg: MoltbotConfig;
+  cfg: DainelConfig;
   runtime: RuntimeEnv;
   prompter: WizardPrompter;
   options?: SetupChannelsOptions;
@@ -58,7 +58,7 @@ export type ChannelOnboardingConfigureContext = {
 };
 
 export type ChannelOnboardingResult = {
-  cfg: MoltbotConfig;
+  cfg: DainelConfig;
   accountId?: string;
 };
 
@@ -67,13 +67,13 @@ export type ChannelOnboardingDmPolicy = {
   channel: ChannelId;
   policyKey: string;
   allowFromKey: string;
-  getCurrent: (cfg: MoltbotConfig) => DmPolicy;
-  setPolicy: (cfg: MoltbotConfig, policy: DmPolicy) => MoltbotConfig;
+  getCurrent: (cfg: DainelConfig) => DmPolicy;
+  setPolicy: (cfg: DainelConfig, policy: DmPolicy) => DainelConfig;
   promptAllowFrom?: (params: {
-    cfg: MoltbotConfig;
+    cfg: DainelConfig;
     prompter: WizardPrompter;
     accountId?: string;
-  }) => Promise<MoltbotConfig>;
+  }) => Promise<DainelConfig>;
 };
 
 export type ChannelOnboardingAdapter = {
@@ -82,5 +82,5 @@ export type ChannelOnboardingAdapter = {
   configure: (ctx: ChannelOnboardingConfigureContext) => Promise<ChannelOnboardingResult>;
   dmPolicy?: ChannelOnboardingDmPolicy;
   onAccountRecorded?: (accountId: string, options?: SetupChannelsOptions) => void;
-  disable?: (cfg: MoltbotConfig) => MoltbotConfig;
+  disable?: (cfg: DainelConfig) => DainelConfig;
 };

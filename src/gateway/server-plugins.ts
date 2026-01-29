@@ -1,5 +1,5 @@
 import type { loadConfig } from "../config/config.js";
-import { loadMoltbotPlugins } from "../plugins/loader.js";
+import { loadDainelPlugins } from "../plugins/loader.js";
 import type { GatewayRequestHandler } from "./server-methods/types.js";
 
 export function loadGatewayPlugins(params: {
@@ -14,7 +14,7 @@ export function loadGatewayPlugins(params: {
   coreGatewayHandlers: Record<string, GatewayRequestHandler>;
   baseMethods: string[];
 }) {
-  const pluginRegistry = loadMoltbotPlugins({
+  const pluginRegistry = loadDainelPlugins({
     config: params.cfg,
     workspaceDir: params.workspaceDir,
     logger: {

@@ -1,5 +1,5 @@
 import AppKit
-import MoltbotProtocol
+import DainelProtocol
 import SwiftUI
 import Testing
 

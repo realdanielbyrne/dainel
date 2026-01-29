@@ -71,3 +71,25 @@ USER.md
 
 # local tooling
 .serena/
+
+# Claude Code / AI agent local files
+.claude/
+.agent/
+
+# Temporary reports
+SharePointReport_*/
+Swabble/
+
+# IDE and editor files
+*.swp
+*.swo
+*~
+.idea/
+
+# macOS extras
+Thumbs.db
+
+# Test/build artifacts
+*.log
+*.tmp
+.cache/

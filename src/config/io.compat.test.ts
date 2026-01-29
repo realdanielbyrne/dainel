@@ -6,7 +6,7 @@ import { describe, expect, it } from "vitest";
 import { createConfigIO } from "./io.js";
 
 async function withTempHome(run: (home: string) => Promise<void>): Promise<void> {
-  const home = await fs.mkdtemp(path.join(os.tmpdir(), "moltbot-config-"));
+  const home = await fs.mkdtemp(path.join(os.tmpdir(), "dainel-config-"));
   try {
     await run(home);
   } finally {
@@ -16,9 +16,9 @@ async function withTempHome(run: (home: string) => Promise<void>): Promise<void>
 
 async function writeConfig(
   home: string,
-  dirname: ".moltbot" | ".clawdbot",
+  dirname: ".dainel" | ".clawdbot" | ".moltbot",
   port: number,
-  filename: "moltbot.json" | "clawdbot.json" = "moltbot.json",
+  filename: "dainel.json" | "clawdbot.json" | "moltbot.json" = "dainel.json",
 ) {
   const dir = path.join(home, dirname);
   await fs.mkdir(dir, { recursive: true });
@@ -28,10 +28,10 @@ async function writeConfig(
 }
 
 describe("config io compat (new + legacy folders)", () => {
-  it("prefers ~/.moltbot/moltbot.json when both configs exist", async () => {
+  it("prefers ~/.dainel/dainel.json when both configs exist", async () => {
     await withTempHome(async (home) => {
-      const newConfigPath = await writeConfig(home, ".moltbot", 19001);
-      await writeConfig(home, ".clawdbot", 18789);
+      const newConfigPath = await writeConfig(home, ".dainel", 19001);
+      await writeConfig(home, ".clawdbot", 18789); // Legacy folder
 
       const io = createConfigIO({
         env: {} as NodeJS.ProcessEnv,
@@ -42,9 +42,9 @@ describe("config io compat (new + legacy folders)", () => {
     });
   });
 
-  it("falls back to ~/.clawdbot/moltbot.json when only legacy exists", async () => {
+  it("falls back to ~/.clawdbot/clawdbot.json when only legacy exists", async () => {
     await withTempHome(async (home) => {
-      const legacyConfigPath = await writeConfig(home, ".clawdbot", 20001);
+      const legacyConfigPath = await writeConfig(home, ".clawdbot", 20001, "clawdbot.json");
 
       const io = createConfigIO({
         env: {} as NodeJS.ProcessEnv,
@@ -56,9 +56,9 @@ describe("config io compat (new + legacy folders)", () => {
     });
   });
 
-  it("falls back to ~/.clawdbot/clawdbot.json when only legacy filename exists", async () => {
+  it("falls back to ~/.moltbot/moltbot.json when only moltbot legacy filename exists", async () => {
     await withTempHome(async (home) => {
-      const legacyConfigPath = await writeConfig(home, ".clawdbot", 20002, "clawdbot.json");
+      const legacyConfigPath = await writeConfig(home, ".moltbot", 20002, "moltbot.json");
 
       const io = createConfigIO({
         env: {} as NodeJS.ProcessEnv,
@@ -70,10 +70,10 @@ describe("config io compat (new + legacy folders)", () => {
     });
   });
 
-  it("prefers moltbot.json over legacy filename in the same dir", async () => {
+  it("prefers dainel.json over legacy filename in the same dir", async () => {
     await withTempHome(async (home) => {
-      const preferred = await writeConfig(home, ".clawdbot", 20003, "moltbot.json");
-      await writeConfig(home, ".clawdbot", 20004, "clawdbot.json");
+      const preferred = await writeConfig(home, ".dainel", 20003, "dainel.json");
+      await writeConfig(home, ".dainel", 20004, "clawdbot.json"); // Legacy filename in new folder
 
       const io = createConfigIO({
         env: {} as NodeJS.ProcessEnv,
@@ -85,18 +85,22 @@ describe("config io compat (new + legacy folders)", () => {
     });
   });
 
-  it("honors explicit legacy config path env override", async () => {
+  it("honors explicit config path env override", async () => {
     await withTempHome(async (home) => {
-      const newConfigPath = await writeConfig(home, ".moltbot", 19002);
-      const legacyConfigPath = await writeConfig(home, ".clawdbot", 20002);
+      const newConfigPath = await writeConfig(home, ".dainel", 19002);
+      // Create override config in a custom location
+      const customDir = path.join(home, "custom-config");
+      await fs.mkdir(customDir, { recursive: true });
+      const overridePath = path.join(customDir, "dainel.json");
+      await fs.writeFile(overridePath, JSON.stringify({ gateway: { port: 20002 } }, null, 2));
 
       const io = createConfigIO({
-        env: { CLAWDBOT_CONFIG_PATH: legacyConfigPath } as NodeJS.ProcessEnv,
+        env: { DAINEL_CONFIG_PATH: overridePath } as NodeJS.ProcessEnv,
         homedir: () => home,
       });
 
       expect(io.configPath).not.toBe(newConfigPath);
-      expect(io.configPath).toBe(legacyConfigPath);
+      expect(io.configPath).toBe(overridePath);
       expect(io.loadConfig().gateway?.port).toBe(20002);
     });
   });

@@ -1,4 +1,4 @@
-import MoltbotKit
+import DainelKit
 import SwiftUI
 
 struct ScreenTab: View {

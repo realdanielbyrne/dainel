@@ -1,5 +1,5 @@
-import MoltbotChatUI
-import MoltbotKit
+import DainelChatUI
+import DainelKit
 import SwiftUI
 
 struct ChatSheet: View {

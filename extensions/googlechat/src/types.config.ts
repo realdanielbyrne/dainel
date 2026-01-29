@@ -1,3 +1,3 @@
-import type { GoogleChatAccountConfig, GoogleChatConfig } from "clawdbot/plugin-sdk";
+import type { GoogleChatAccountConfig, GoogleChatConfig } from "dainel/plugin-sdk";
 
 export type { GoogleChatAccountConfig, GoogleChatConfig };

@@ -1,13 +1,13 @@
 ---
 summary: "Plugin manifest + JSON schema requirements (strict config validation)"
 read_when:
-  - You are building a Moltbot plugin
+  - You are building a Dainel plugin
   - You need to ship a plugin config schema or debug plugin validation errors
 ---
-# Plugin manifest (moltbot.plugin.json)
+# Plugin manifest (dainel.plugin.json)
 
-Every plugin **must** ship a `moltbot.plugin.json` file in the **plugin root**.
-Moltbot uses this manifest to validate configuration **without executing plugin
+Every plugin **must** ship a `dainel.plugin.json` file in the **plugin root**.
+Dainel uses this manifest to validate configuration **without executing plugin
 code**. Missing or invalid manifests are treated as plugin errors and block
 config validation.
 

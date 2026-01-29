@@ -40,7 +40,7 @@ const runtime: RuntimeEnv = {
 };
 
 const _baseSnapshot = {
-  path: "/tmp/moltbot.json",
+  path: "/tmp/dainel.json",
   exists: true,
   raw: "{}",
   parsed: {},

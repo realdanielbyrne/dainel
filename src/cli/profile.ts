@@ -82,7 +82,7 @@ export function parseCliProfileArgs(argv: string[]): CliProfileParseResult {
 
 function resolveProfileStateDir(profile: string, homedir: () => string): string {
   const suffix = profile.toLowerCase() === "default" ? "" : `-${profile}`;
-  return path.join(homedir(), `.clawdbot${suffix}`);
+  return path.join(homedir(), `.dainel${suffix}`);
 }
 
 export function applyCliProfileEnv(params: {
@@ -96,16 +96,16 @@ export function applyCliProfileEnv(params: {
   if (!profile) return;
 
   // Convenience only: fill defaults, never override explicit env values.
-  env.CLAWDBOT_PROFILE = profile;
+  env.DAINEL_PROFILE = profile;
 
-  const stateDir = env.CLAWDBOT_STATE_DIR?.trim() || resolveProfileStateDir(profile, homedir);
-  if (!env.CLAWDBOT_STATE_DIR?.trim()) env.CLAWDBOT_STATE_DIR = stateDir;
+  const stateDir = env.DAINEL_STATE_DIR?.trim() || resolveProfileStateDir(profile, homedir);
+  if (!env.DAINEL_STATE_DIR?.trim()) env.DAINEL_STATE_DIR = stateDir;
 
-  if (!env.CLAWDBOT_CONFIG_PATH?.trim()) {
-    env.CLAWDBOT_CONFIG_PATH = path.join(stateDir, "moltbot.json");
+  if (!env.DAINEL_CONFIG_PATH?.trim()) {
+    env.DAINEL_CONFIG_PATH = path.join(stateDir, "dainel.json");
   }
 
-  if (profile === "dev" && !env.CLAWDBOT_GATEWAY_PORT?.trim()) {
-    env.CLAWDBOT_GATEWAY_PORT = "19001";
+  if (profile === "dev" && !env.DAINEL_GATEWAY_PORT?.trim()) {
+    env.DAINEL_GATEWAY_PORT = "19001";
   }
 }

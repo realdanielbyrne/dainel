@@ -1,5 +1,5 @@
-import type { ChannelOnboardingAdapter, MoltbotConfig, WizardPrompter } from "clawdbot/plugin-sdk";
-import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "clawdbot/plugin-sdk";
+import type { ChannelOnboardingAdapter, DainelConfig, WizardPrompter } from "dainel/plugin-sdk";
+import { DEFAULT_ACCOUNT_ID, normalizeAccountId } from "dainel/plugin-sdk";
 
 import {
   listMattermostAccountIds,
@@ -177,7 +177,7 @@ export const mattermostOnboardingAdapter: ChannelOnboardingAdapter = {
 
     return { cfg: next, accountId };
   },
-  disable: (cfg: MoltbotConfig) => ({
+  disable: (cfg: DainelConfig) => ({
     ...cfg,
     channels: {
       ...cfg.channels,

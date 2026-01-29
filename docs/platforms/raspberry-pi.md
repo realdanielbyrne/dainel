@@ -1,16 +1,16 @@
 ---
-summary: "Moltbot on Raspberry Pi (budget self-hosted setup)"
+summary: "Dainel on Raspberry Pi (budget self-hosted setup)"
 read_when:
-  - Setting up Moltbot on a Raspberry Pi
-  - Running Moltbot on ARM devices
+  - Setting up Dainel on a Raspberry Pi
+  - Running Dainel on ARM devices
   - Building a cheap always-on personal AI
 ---
 
-# Moltbot on Raspberry Pi
+# Dainel on Raspberry Pi
 
 ## Goal
 
-Run a persistent, always-on Moltbot Gateway on a Raspberry Pi for **~$35-80** one-time cost (no monthly fees).
+Run a persistent, always-on Dainel Gateway on a Raspberry Pi for **~$35-80** one-time cost (no monthly fees).
 
 Perfect for:
 - 24/7 personal AI assistant
@@ -105,7 +105,7 @@ echo 'vm.swappiness=10' | sudo tee -a /etc/sysctl.conf
 sudo sysctl -p
 ```
 
-## 6) Install Moltbot
+## 6) Install Dainel
 
 ### Option A: Standard Install (Recommended)
 
@@ -116,8 +116,8 @@ curl -fsSL https://molt.bot/install.sh | bash
 ### Option B: Hackable Install (For tinkering)
 
 ```bash
-git clone https://github.com/moltbot/moltbot.git
-cd moltbot
+git clone https://github.com/dainel/dainel.git
+cd dainel
 npm install
 npm run build
 npm link
@@ -128,7 +128,7 @@ The hackable install gives you direct access to logs and code — useful for deb
 ## 7) Run Onboarding
 
 ```bash
-moltbot onboard --install-daemon
+dainel onboard --install-daemon
 ```
 
 Follow the wizard:
@@ -141,13 +141,13 @@ Follow the wizard:
 
 ```bash
 # Check status
-moltbot status
+dainel status
 
 # Check service
-sudo systemctl status moltbot
+sudo systemctl status dainel
 
 # View logs
-journalctl -u moltbot -f
+journalctl -u dainel -f
 ```
 
 ## 9) Access the Dashboard
@@ -170,8 +170,8 @@ curl -fsSL https://tailscale.com/install.sh | sh
 sudo tailscale up
 
 # Update config
-moltbot config set gateway.bind tailnet
-sudo systemctl restart moltbot
+dainel config set gateway.bind tailnet
+sudo systemctl restart dainel
 ```
 
 ---
@@ -218,7 +218,7 @@ htop
 
 ### Binary Compatibility
 
-Most Moltbot features work on ARM64, but some external binaries may need ARM builds:
+Most Dainel features work on ARM64, but some external binaries may need ARM builds:
 
 | Tool | ARM64 Status | Notes |
 |------|--------------|-------|
@@ -268,13 +268,13 @@ The onboarding wizard sets this up, but to verify:
 
 ```bash
 # Check service is enabled
-sudo systemctl is-enabled moltbot
+sudo systemctl is-enabled dainel
 
 # Enable if not
-sudo systemctl enable moltbot
+sudo systemctl enable dainel
 
 # Start on boot
-sudo systemctl start moltbot
+sudo systemctl start dainel
 ```
 
 ---
@@ -301,12 +301,12 @@ free -h
 
 ```bash
 # Check logs
-journalctl -u moltbot --no-pager -n 100
+journalctl -u dainel --no-pager -n 100
 
 # Common fix: rebuild
-cd ~/moltbot  # if using hackable install
+cd ~/dainel  # if using hackable install
 npm run build
-sudo systemctl restart moltbot
+sudo systemctl restart dainel
 ```
 
 ### ARM Binary Issues

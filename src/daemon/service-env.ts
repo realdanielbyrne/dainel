@@ -131,7 +131,7 @@ export function buildServiceEnvironment(params: {
   launchdLabel?: string;
 }): Record<string, string | undefined> {
   const { env, port, token, launchdLabel } = params;
-  const profile = env.CLAWDBOT_PROFILE;
+  const profile = env.DAINEL_PROFILE;
   const resolvedLaunchdLabel =
     launchdLabel ||
     (process.platform === "darwin" ? resolveGatewayLaunchAgentLabel(profile) : undefined);
@@ -139,16 +139,16 @@ export function buildServiceEnvironment(params: {
   return {
     HOME: env.HOME,
     PATH: buildMinimalServicePath({ env }),
-    CLAWDBOT_PROFILE: profile,
-    CLAWDBOT_STATE_DIR: env.CLAWDBOT_STATE_DIR,
-    CLAWDBOT_CONFIG_PATH: env.CLAWDBOT_CONFIG_PATH,
-    CLAWDBOT_GATEWAY_PORT: String(port),
-    CLAWDBOT_GATEWAY_TOKEN: token,
-    CLAWDBOT_LAUNCHD_LABEL: resolvedLaunchdLabel,
-    CLAWDBOT_SYSTEMD_UNIT: systemdUnit,
-    CLAWDBOT_SERVICE_MARKER: GATEWAY_SERVICE_MARKER,
-    CLAWDBOT_SERVICE_KIND: GATEWAY_SERVICE_KIND,
-    CLAWDBOT_SERVICE_VERSION: VERSION,
+    DAINEL_PROFILE: profile,
+    DAINEL_STATE_DIR: env.DAINEL_STATE_DIR,
+    DAINEL_CONFIG_PATH: env.DAINEL_CONFIG_PATH,
+    DAINEL_GATEWAY_PORT: String(port),
+    DAINEL_GATEWAY_TOKEN: token,
+    DAINEL_LAUNCHD_LABEL: resolvedLaunchdLabel,
+    DAINEL_SYSTEMD_UNIT: systemdUnit,
+    DAINEL_SERVICE_MARKER: GATEWAY_SERVICE_MARKER,
+    DAINEL_SERVICE_KIND: GATEWAY_SERVICE_KIND,
+    DAINEL_SERVICE_VERSION: VERSION,
   };
 }
 
@@ -159,15 +159,15 @@ export function buildNodeServiceEnvironment(params: {
   return {
     HOME: env.HOME,
     PATH: buildMinimalServicePath({ env }),
-    CLAWDBOT_STATE_DIR: env.CLAWDBOT_STATE_DIR,
-    CLAWDBOT_CONFIG_PATH: env.CLAWDBOT_CONFIG_PATH,
-    CLAWDBOT_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
-    CLAWDBOT_SYSTEMD_UNIT: resolveNodeSystemdServiceName(),
-    CLAWDBOT_WINDOWS_TASK_NAME: resolveNodeWindowsTaskName(),
-    CLAWDBOT_TASK_SCRIPT_NAME: NODE_WINDOWS_TASK_SCRIPT_NAME,
-    CLAWDBOT_LOG_PREFIX: "node",
-    CLAWDBOT_SERVICE_MARKER: NODE_SERVICE_MARKER,
-    CLAWDBOT_SERVICE_KIND: NODE_SERVICE_KIND,
-    CLAWDBOT_SERVICE_VERSION: VERSION,
+    DAINEL_STATE_DIR: env.DAINEL_STATE_DIR,
+    DAINEL_CONFIG_PATH: env.DAINEL_CONFIG_PATH,
+    DAINEL_LAUNCHD_LABEL: resolveNodeLaunchAgentLabel(),
+    DAINEL_SYSTEMD_UNIT: resolveNodeSystemdServiceName(),
+    DAINEL_WINDOWS_TASK_NAME: resolveNodeWindowsTaskName(),
+    DAINEL_TASK_SCRIPT_NAME: NODE_WINDOWS_TASK_SCRIPT_NAME,
+    DAINEL_LOG_PREFIX: "node",
+    DAINEL_SERVICE_MARKER: NODE_SERVICE_MARKER,
+    DAINEL_SERVICE_KIND: NODE_SERVICE_KIND,
+    DAINEL_SERVICE_VERSION: VERSION,
   };
 }

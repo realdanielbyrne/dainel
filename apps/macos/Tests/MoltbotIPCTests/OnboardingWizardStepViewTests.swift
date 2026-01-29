@@ -1,4 +1,4 @@
-import MoltbotProtocol
+import DainelProtocol
 import SwiftUI
 import Testing
 @testable import Moltbot

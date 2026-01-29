@@ -1,5 +1,5 @@
 import AppKit
-import MoltbotIPC
+import DainelIPC
 import Foundation
 import Testing
 @testable import Moltbot

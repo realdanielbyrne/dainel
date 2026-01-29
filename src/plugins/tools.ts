@@ -1,8 +1,8 @@
 import type { AnyAgentTool } from "../agents/tools/common.js";
 import { normalizeToolName } from "../agents/tool-policy.js";
 import { createSubsystemLogger } from "../logging/subsystem.js";
-import { loadMoltbotPlugins } from "./loader.js";
-import type { MoltbotPluginToolContext } from "./types.js";
+import { loadDainelPlugins } from "./loader.js";
+import type { DainelPluginToolContext } from "./types.js";
 
 const log = createSubsystemLogger("plugins");
 
@@ -35,11 +35,11 @@ function isOptionalToolAllowed(params: {
 }
 
 export function resolvePluginTools(params: {
-  context: MoltbotPluginToolContext;
+  context: DainelPluginToolContext;
   existingToolNames?: Set<string>;
   toolAllowlist?: string[];
 }): AnyAgentTool[] {
-  const registry = loadMoltbotPlugins({
+  const registry = loadDainelPlugins({
     config: params.context.config,
     workspaceDir: params.context.workspaceDir,
     logger: {

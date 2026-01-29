@@ -1,6 +1,6 @@
-import MoltbotChatUI
-import MoltbotKit
-import MoltbotProtocol
+import DainelChatUI
+import DainelKit
+import DainelProtocol
 import Foundation
 
 struct IOSGatewayChatTransport: MoltbotChatTransport, Sendable {

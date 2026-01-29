@@ -4,7 +4,7 @@ import path from "node:path";
 
 import { describe, expect, it } from "vitest";
 
-import type { MoltbotPluginApi, MoltbotPluginToolContext } from "../../../src/plugins/types.js";
+import type { DainelPluginApi, MoltbotPluginToolContext } from "../../../src/plugins/types.js";
 import { createLobsterTool } from "./lobster-tool.js";
 
 async function writeFakeLobsterScript(scriptBody: string, prefix = "moltbot-lobster-plugin-") {
@@ -33,7 +33,7 @@ async function writeFakeLobster(params: { payload: unknown }) {
   return await writeFakeLobsterScript(scriptBody);
 }
 
-function fakeApi(): MoltbotPluginApi {
+function fakeApi(): DainelPluginApi {
   return {
     id: "lobster",
     name: "lobster",

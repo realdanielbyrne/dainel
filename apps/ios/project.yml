@@ -1,6 +1,6 @@
-name: Moltbot
+name: Dainel
 options:
-  bundleIdPrefix: bot.molt
+  bundleIdPrefix: bot.dainel
   deploymentTarget:
     iOS: "18.0"
   xcodeVersion: "16.0"
@@ -10,33 +10,33 @@ settings:
     SWIFT_VERSION: "6.0"
 
 packages:
-  MoltbotKit:
-    path: ../shared/MoltbotKit
+  DainelKit:
+    path: ../shared/DainelKit
   Swabble:
     path: ../../Swabble
 
 schemes:
-  Moltbot:
+  Dainel:
     shared: true
     build:
       targets:
-        Moltbot: all
+        Dainel: all
     test:
       targets:
-        - MoltbotTests
+        - DainelTests
 
 targets:
-  Moltbot:
+  Dainel:
     type: application
     platform: iOS
     sources:
       - path: Sources
     dependencies:
-      - package: MoltbotKit
-      - package: MoltbotKit
-        product: MoltbotChatUI
-      - package: MoltbotKit
-        product: MoltbotProtocol
+      - package: DainelKit
+      - package: DainelKit
+        product: DainelChatUI
+      - package: DainelKit
+        product: DainelProtocol
       - package: Swabble
         product: SwabbleKit
       - sdk: AppIntents.framework
@@ -71,15 +71,15 @@ targets:
         CODE_SIGN_IDENTITY: "Apple Development"
         CODE_SIGN_STYLE: Manual
         DEVELOPMENT_TEAM: Y5PE65HELJ
-        PRODUCT_BUNDLE_IDENTIFIER: bot.molt.ios
-        PROVISIONING_PROFILE_SPECIFIER: "bot.molt.ios Development"
+        PRODUCT_BUNDLE_IDENTIFIER: bot.dainel.ios
+        PROVISIONING_PROFILE_SPECIFIER: "bot.dainel.ios Development"
         SWIFT_VERSION: "6.0"
         SWIFT_STRICT_CONCURRENCY: complete
         ENABLE_APPINTENTS_METADATA: NO
     info:
       path: Sources/Info.plist
       properties:
-        CFBundleDisplayName: Moltbot
+        CFBundleDisplayName: Dainel
         CFBundleIconName: AppIcon
         CFBundleShortVersionString: "2026.1.27-beta.1"
         CFBundleVersion: "20260126"
@@ -88,16 +88,16 @@ targets:
           UIApplicationSupportsMultipleScenes: false
         UIBackgroundModes:
           - audio
-        NSLocalNetworkUsageDescription: Moltbot discovers and connects to your Moltbot gateway on the local network.
+        NSLocalNetworkUsageDescription: Dainel discovers and connects to your Dainel gateway on the local network.
         NSAppTransportSecurity:
           NSAllowsArbitraryLoadsInWebContent: true
         NSBonjourServices:
-          - _moltbot-gw._tcp
-        NSCameraUsageDescription: Moltbot can capture photos or short video clips when requested via the gateway.
-        NSLocationWhenInUseUsageDescription: Moltbot uses your location when you allow location sharing.
-        NSLocationAlwaysAndWhenInUseUsageDescription: Moltbot can share your location in the background when you enable Always.
-        NSMicrophoneUsageDescription: Moltbot needs microphone access for voice wake.
-        NSSpeechRecognitionUsageDescription: Moltbot uses on-device speech recognition for voice wake.
+          - _dainel-gw._tcp
+        NSCameraUsageDescription: Dainel can capture photos or short video clips when requested via the gateway.
+        NSLocationWhenInUseUsageDescription: Dainel uses your location when you allow location sharing.
+        NSLocationAlwaysAndWhenInUseUsageDescription: Dainel can share your location in the background when you enable Always.
+        NSMicrophoneUsageDescription: Dainel needs microphone access for voice wake.
+        NSSpeechRecognitionUsageDescription: Dainel uses on-device speech recognition for voice wake.
         UISupportedInterfaceOrientations:
           - UIInterfaceOrientationPortrait
           - UIInterfaceOrientationPortraitUpsideDown
@@ -109,26 +109,26 @@ targets:
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
 
-  MoltbotTests:
+  DainelTests:
     type: bundle.unit-test
     platform: iOS
     sources:
       - path: Tests
     dependencies:
-      - target: Moltbot
+      - target: Dainel
       - package: Swabble
         product: SwabbleKit
       - sdk: AppIntents.framework
     settings:
       base:
-        PRODUCT_BUNDLE_IDENTIFIER: bot.molt.ios.tests
+        PRODUCT_BUNDLE_IDENTIFIER: bot.dainel.ios.tests
         SWIFT_VERSION: "6.0"
         SWIFT_STRICT_CONCURRENCY: complete
-        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Moltbot.app/Moltbot"
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Dainel.app/Dainel"
         BUNDLE_LOADER: "$(TEST_HOST)"
     info:
       path: Tests/Info.plist
       properties:
-        CFBundleDisplayName: MoltbotTests
+        CFBundleDisplayName: DainelTests
         CFBundleShortVersionString: "2026.1.27-beta.1"
         CFBundleVersion: "20260126"

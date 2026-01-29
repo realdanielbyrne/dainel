@@ -8,7 +8,7 @@ import {
   logTypingFailure,
   resolveControlCommandGate,
   type RuntimeEnv,
-} from "clawdbot/plugin-sdk";
+} from "dainel/plugin-sdk";
 import type { CoreConfig, ReplyToMode } from "../../types.js";
 import {
   formatPollAsText,

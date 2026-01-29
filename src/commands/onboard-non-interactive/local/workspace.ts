@@ -1,10 +1,10 @@
-import type { MoltbotConfig } from "../../../config/config.js";
+import type { DainelConfig } from "../../../config/config.js";
 import { resolveUserPath } from "../../../utils.js";
 import type { OnboardOptions } from "../../onboard-types.js";
 
 export function resolveNonInteractiveWorkspaceDir(params: {
   opts: OnboardOptions;
-  baseConfig: MoltbotConfig;
+  baseConfig: DainelConfig;
   defaultWorkspaceDir: string;
 }) {
   const raw = (

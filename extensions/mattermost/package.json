@@ -1,9 +1,9 @@
 {
-  "name": "@moltbot/mattermost",
+  "name": "@dainel/mattermost",
   "version": "2026.1.27-beta.1",
   "type": "module",
-  "description": "Moltbot Mattermost channel plugin",
-  "moltbot": {
+  "description": "Dainel Mattermost channel plugin",
+  "dainel": {
     "extensions": [
       "./index.ts"
     ],
@@ -17,7 +17,7 @@
       "order": 65
     },
     "install": {
-      "npmSpec": "@moltbot/mattermost",
+      "npmSpec": "@dainel/mattermost",
       "localPath": "extensions/mattermost",
       "defaultChoice": "npm"
     }

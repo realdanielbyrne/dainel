@@ -47,7 +47,7 @@ type NodeDaemonStatusOptions = {
 };
 
 function renderNodeServiceStartHints(): string[] {
-  const base = [formatCliCommand("moltbot node install"), formatCliCommand("moltbot node start")];
+  const base = [formatCliCommand("dainel node install"), formatCliCommand("dainel node start")];
   switch (process.platform) {
     case "darwin":
       return [
@@ -169,7 +169,7 @@ export async function runNodeDaemonInstall(opts: NodeDaemonInstallOptions) {
     });
     if (!json) {
       defaultRuntime.log(`Node service already ${service.loadedText}.`);
-      defaultRuntime.log(`Reinstall with: ${formatCliCommand("moltbot node install --force")}`);
+      defaultRuntime.log(`Reinstall with: ${formatCliCommand("dainel node install --force")}`);
     }
     return;
   }
@@ -561,7 +561,7 @@ export async function runNodeDaemonStatus(opts: NodeDaemonStatusOptions = {}) {
   };
   const hintEnv = {
     ...baseEnv,
-    CLAWDBOT_LOG_PREFIX: baseEnv.CLAWDBOT_LOG_PREFIX ?? "node",
+    DAINEL_LOG_PREFIX: baseEnv.DAINEL_LOG_PREFIX ?? "node",
   } as NodeJS.ProcessEnv;
 
   if (runtime?.missingUnit) {

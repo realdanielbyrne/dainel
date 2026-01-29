@@ -1,4 +1,4 @@
-import MoltbotProtocol
+import DainelProtocol
 import Testing
 @testable import Moltbot
 

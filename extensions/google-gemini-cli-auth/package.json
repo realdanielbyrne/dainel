@@ -1,9 +1,9 @@
 {
-  "name": "@moltbot/google-gemini-cli-auth",
+  "name": "@dainel/google-gemini-cli-auth",
   "version": "2026.1.27-beta.1",
   "type": "module",
-  "description": "Moltbot Gemini CLI OAuth provider plugin",
-  "moltbot": {
+  "description": "Dainel Gemini CLI OAuth provider plugin",
+  "dainel": {
     "extensions": [
       "./index.ts"
     ]

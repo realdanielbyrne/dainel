@@ -1,5 +1,5 @@
 ---
-summary: "Install Moltbot declaratively with Nix"
+summary: "Install Dainel declaratively with Nix"
 read_when:
   - You want reproducible, rollback-able installs
   - You're already using Nix/NixOS/Home Manager
@@ -8,30 +8,30 @@ read_when:
 
 # Nix Installation
 
-The recommended way to run Moltbot with Nix is via **[nix-moltbot](https://github.com/moltbot/nix-moltbot)** — a batteries-included Home Manager module.
+The recommended way to run Dainel with Nix is via **[nix-dainel](https://github.com/dainel/nix-dainel)** — a batteries-included Home Manager module.
 
 ## Quick Start
 
 Paste this to your AI agent (Claude, Cursor, etc.):
 
 ```text
-I want to set up nix-moltbot on my Mac.
-Repository: github:moltbot/nix-moltbot
+I want to set up nix-dainel on my Mac.
+Repository: github:dainel/nix-dainel
 
 What I need you to do:
 1. Check if Determinate Nix is installed (if not, install it)
-2. Create a local flake at ~/code/moltbot-local using templates/agent-first/flake.nix
+2. Create a local flake at ~/code/dainel-local using templates/agent-first/flake.nix
 3. Help me create a Telegram bot (@BotFather) and get my chat ID (@userinfobot)
 4. Set up secrets (bot token, Anthropic key) - plain files at ~/.secrets/ is fine
 5. Fill in the template placeholders and run home-manager switch
 6. Verify: launchd running, bot responds to messages
 
-Reference the nix-moltbot README for module options.
+Reference the nix-dainel README for module options.
 ```
 
-> **📦 Full guide: [github.com/moltbot/nix-moltbot](https://github.com/moltbot/nix-moltbot)**
+> **📦 Full guide: [github.com/dainel/nix-dainel](https://github.com/dainel/nix-dainel)**
 >
-> The nix-moltbot repo is the source of truth for Nix installation. This page is just a quick overview.
+> The nix-dainel repo is the source of truth for Nix installation. This page is just a quick overview.
 
 ## What you get
 
@@ -44,28 +44,28 @@ Reference the nix-moltbot README for module options.
 
 ## Nix Mode Runtime Behavior
 
-When `CLAWDBOT_NIX_MODE=1` is set (automatic with nix-moltbot):
+When `DAINEL_NIX_MODE=1` is set (automatic with nix-dainel):
 
-Moltbot supports a **Nix mode** that makes configuration deterministic and disables auto-install flows.
+Dainel supports a **Nix mode** that makes configuration deterministic and disables auto-install flows.
 Enable it by exporting:
 
 ```bash
-CLAWDBOT_NIX_MODE=1
+DAINEL_NIX_MODE=1
 ```
 
 On macOS, the GUI app does not automatically inherit shell env vars. You can
 also enable Nix mode via defaults:
 
 ```bash
-defaults write bot.molt.mac moltbot.nixMode -bool true
+defaults write bot.molt.mac dainel.nixMode -bool true
 ```
 
 ### Config + state paths
 
-Moltbot reads JSON5 config from `CLAWDBOT_CONFIG_PATH` and stores mutable data in `CLAWDBOT_STATE_DIR`.
+Dainel reads JSON5 config from `DAINEL_CONFIG_PATH` and stores mutable data in `DAINEL_STATE_DIR`.
 
-- `CLAWDBOT_STATE_DIR` (default: `~/.clawdbot`)
-- `CLAWDBOT_CONFIG_PATH` (default: `$CLAWDBOT_STATE_DIR/moltbot.json`)
+- `DAINEL_STATE_DIR` (default: `~/.dainel`)
+- `DAINEL_CONFIG_PATH` (default: `$DAINEL_STATE_DIR/dainel.json`)
 
 When running under Nix, set these explicitly to Nix-managed locations so runtime state and config
 stay out of the immutable store.
@@ -81,15 +81,15 @@ stay out of the immutable store.
 The macOS packaging flow expects a stable Info.plist template at:
 
 ```
-apps/macos/Sources/Moltbot/Resources/Info.plist
+apps/macos/Sources/Dainel/Resources/Info.plist
 ```
 
-[`scripts/package-mac-app.sh`](https://github.com/moltbot/moltbot/blob/main/scripts/package-mac-app.sh) copies this template into the app bundle and patches dynamic fields
+[`scripts/package-mac-app.sh`](https://github.com/dainel/dainel/blob/main/scripts/package-mac-app.sh) copies this template into the app bundle and patches dynamic fields
 (bundle ID, version/build, Git SHA, Sparkle keys). This keeps the plist deterministic for SwiftPM
 packaging and Nix builds (which do not rely on a full Xcode toolchain).
 
 ## Related
 
-- [nix-moltbot](https://github.com/moltbot/nix-moltbot) — full setup guide
+- [nix-dainel](https://github.com/dainel/nix-dainel) — full setup guide
 - [Wizard](/start/wizard) — non-Nix CLI setup
 - [Docker](/install/docker) — containerized setup
